@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/spring-rest-demo
+    username: spring-rest-demo
+    password: spring-rest-demo
+  jpa:
+    generate-ddl: true
