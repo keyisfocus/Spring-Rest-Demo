@@ -52,6 +52,6 @@ public class UserService {
     private User findUserById(Long id) throws UserNotFoundException {
         return repository
                 .findById(id)
-                .orElseThrow(UserNotFoundException::new);
+                .orElseThrow(() -> new UserNotFoundException(String.format("User #%d doesn't exist", id)));
     }
 }
