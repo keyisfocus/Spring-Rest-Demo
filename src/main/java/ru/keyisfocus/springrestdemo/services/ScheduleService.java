@@ -24,8 +24,10 @@ public class ScheduleService {
         tasks = new ConcurrentHashMap<>();
     }
 
-    public void subscribe(long id) {
-        var future = scheduler.schedule(() -> repository.setStatus(id, User.UserStatus.AWAY), Instant.now().plus(5, ChronoUnit.SECONDS));
+    public void scheduleAwayStatus(long id) {
+        var future = scheduler
+                .schedule(() -> repository.setStatus(id, User.UserStatus.AWAY),
+                        Instant.now().plus(5, ChronoUnit.MINUTES));
         tasks.put(id, future);
     }
 

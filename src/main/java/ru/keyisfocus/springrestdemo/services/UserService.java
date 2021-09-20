@@ -37,11 +37,12 @@ public class UserService {
     public UserUpdateStatusResponse updateStatus(UserUpdateStatusRequest request) throws UserNotFoundException {
         var user = findUserById(request.id());
         var previousStatus = user.getStatus();
+
         user.setStatus(request.status());
         user.setLastStatusUpdateTimestamp(Instant.now());
-        repository.save(user);
+
         if (user.getStatus() == User.UserStatus.ONLINE) {
-            scheduleService.subscribe(user.getId());
+            scheduleService.scheduleAwayStatus(user.getId());
         } else {
             scheduleService.cancelTask(user.getId());
         }
